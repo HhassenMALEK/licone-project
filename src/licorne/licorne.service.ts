@@ -1,47 +1,45 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
-import { Prisma, Licorne } from '@prisma/client';
+import { CreateLicorneDto } from './dto/create_licorne.dto';
 
 @Injectable()
 export class LicorneService {
   constructor(private prisma: PrismaService) {}
 
+  // Get all licornes with filters and pagination
+  async getAllLicornes() {
+    return await this.prisma.licorne.findMany();
+  }
+
   // Get a licorne by its ID
-  async getLicorneById(id: number): Promise<Licorne | null> {
-    return this.prisma.licorne.findUnique({
+  async getLicorneById(id: number) {
+    return await this.prisma.licorne.findFirst({
       where: { id },
     });
   }
 
-  // Get all licornes with filters and pagination
-  async getAllLicornes(params: {
-    skip?: number;
-    take?: number;
-    cursor?: Prisma.LicorneWhereUniqueInput;
-    where?: Prisma.LicorneWhereInput;
-    orderBy?: Prisma.LicorneOrderByWithRelationInput;
-  }): Promise<Licorne[]> {
-    return this.prisma.licorne.findMany(params);
-  }
-
   //Create a new licorne
-  async createLicorne(data: Prisma.LicorneCreateInput): Promise<Licorne> {
-    return this.prisma.licorne.create({ data });
+  async createLicorne(createLicorneDto: CreateLicorneDto) {
+    return await this.prisma.licorne.create({
+      data: {
+        name: createLicorneDto.name,
+        color: createLicorneDto.color,
+        age: createLicorneDto.age,
+        weight: createLicorneDto.weight,
+      },
+    });
   }
 
   // Update an existing licorne
-  async updateLicorne(
-    id: number,
-    data: Prisma.LicorneUpdateInput,
-  ): Promise<Licorne> {
+  async updateLicorne(id: number, createLicorneDto: CreateLicorneDto) {
     return this.prisma.licorne.update({
       where: { id },
-      data,
+      data: createLicorneDto,
     });
   }
 
   // Delete a licorne
-  async deleteLicorne(id: number): Promise<Licorne> {
+  async deleteLicorne(id: number) {
     return this.prisma.licorne.delete({
       where: { id },
     });

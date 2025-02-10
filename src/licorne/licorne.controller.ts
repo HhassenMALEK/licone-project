@@ -1,50 +1,50 @@
 import {
   Controller,
   Get,
-  Param,
   Post,
-  Body,
-  Put,
   Delete,
+  Put,
+  Body,
+  Param,
+  UsePipes,
 } from '@nestjs/common';
 import { LicorneService } from './licorne.service';
-import { Licorne } from '@prisma/client';
+import { CreateLicorneDto } from './dto/create_licorne.dto';
+import { ValidationPipe, ParseIntPipe } from '@nestjs/common';
 
-// Main route for the API
 @Controller('licornes')
 export class LicorneController {
   constructor(private readonly licorneService: LicorneService) {}
 
-  // // Get a licorne by its ID
-  @Get(':id')
-  async getLicorneById(@Param('id') id: string): Promise<Licorne | null> {
-    return this.licorneService.getLicorneById(Number(id));
-  }
-
-  // Get all licornes
   @Get()
-  async getAllLicornes(): Promise<Licorne[]> {
-    return this.licorneService.getAllLicornes({});
+  async getAllLicornes() {
+    return this.licorneService.getAllLicornes();
   }
 
-  // Create a new licorne
+  @Get(':id')
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async getLicorneById(@Param('id', ParseIntPipe) id: number) {
+    return await this.licorneService.getLicorneById(id);
+  }
+
   @Post()
-  async createLicorne(@Body() data: Licorne): Promise<Licorne> {
-    return this.licorneService.createLicorne(data);
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async create(@Body() createLicorneDto: CreateLicorneDto) {
+    return await this.licorneService.createLicorne(createLicorneDto);
   }
 
-  // Update an existing licorne
   @Put(':id')
+  @UsePipes(new ValidationPipe({ transform: true }))
   async updateLicorne(
-    @Param('id') id: string,
-    @Body() data: Licorne,
-  ): Promise<Licorne> {
-    return this.licorneService.updateLicorne(Number(id), data);
+    @Param('id', ParseIntPipe) id: number,
+    @Body() createLicorneDto: CreateLicorneDto,
+  ) {
+    return await this.licorneService.updateLicorne(id, createLicorneDto);
   }
 
-  // Delete a licorne
   @Delete(':id')
-  async deleteLicorne(@Param('id') id: string): Promise<Licorne> {
-    return this.licorneService.deleteLicorne(Number(id));
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async deleteLicorne(@Param('id', ParseIntPipe) id: number) {
+    return await this.licorneService.deleteLicorne(id);
   }
 }
