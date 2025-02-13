@@ -1,4 +1,5 @@
 import Form from "next/form";
+import Link from "next/link";
 import { updateLicorne, deleteLicorne } from "../../actions";
 
 export default async function EditLicornePage({
@@ -24,7 +25,9 @@ export default async function EditLicornePage({
           defaultValue={licorne.weight}
           required
         />
-        <button type="submit">Modifier</button>
+        <button type="submit" className="text-red-500">
+          Modifier
+        </button>
       </Form>
       <Form action={deleteLicorne} className="flex flex-col gap-2 mt-4">
         <input type="hidden" name="id" value={licorne.id} />
@@ -32,6 +35,9 @@ export default async function EditLicornePage({
           Supprimer
         </button>
       </Form>
+      <p className="text-blue-500 mt-4 mb-6">
+        <Link href="/licornes">Retour</Link>
+      </p>
     </div>
   );
 }

@@ -21,7 +21,9 @@ export default async function LicornesPage() {
           </li>
         ))}
       </ul>
-      <Link href="/licornes/add">Ajouter une licorne</Link>
+      <p className="text-blue-500 mt-4 mb-6">
+        <Link href="/licornes/add">Ajouter</Link>
+      </p>
     </div>
   );
 }

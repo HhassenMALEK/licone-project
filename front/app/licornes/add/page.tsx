@@ -1,4 +1,5 @@
 import Form from "next/form";
+import Link from "next/link";
 import { addLicorne } from "../actions";
 
 export default function AddLicornePage() {
@@ -12,6 +13,9 @@ export default function AddLicornePage() {
         <input type="number" name="weight" placeholder="Poids" required />
         <button type="submit">Ajouter</button>
       </Form>
+      <p className="text-blue-500 mt-4 mb-6">
+        <Link href="/licornes">Retour</Link>
+      </p>
     </div>
   );
 }
