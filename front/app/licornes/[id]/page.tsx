@@ -1,10 +1,11 @@
 import Link from "next/link";
 
-export default async function LicorneDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function LicorneDetailPage(
+  props: {
+    params: Promise<{ id: string }>;
+  }
+) {
+  const params = await props.params;
   const res = await fetch(`http://localhost:3001/licornes/${params.id}`);
 
   if (!res.ok) {

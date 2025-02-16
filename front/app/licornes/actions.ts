@@ -12,8 +12,8 @@ export async function addLicorne(formData: FormData) {
 
   await fetch("http://localhost:3001/licornes", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newLicorne),
+    headers: { "Content-Type": "application/json" },
   });
 
   redirect("/licornes"); // Redirection vers licornes après l'ajout d'une licorne
