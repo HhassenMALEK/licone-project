@@ -1,10 +1,8 @@
 import Link from "next/link";
 
-export default async function LicorneDetailPage(
-  props: {
-    params: Promise<{ id: string }>;
-  }
-) {
+export default async function LicorneDetailPage(props: {
+  params: Promise<{ id: string }>;
+}) {
   const params = await props.params;
   const res = await fetch(`http://localhost:3001/licornes/${params.id}`);
 
@@ -34,7 +32,7 @@ export default async function LicorneDetailPage(
         </thead>
         <tbody>
           <tr>
-            <td className="px-4 py-2 border border-gray-300">Âge</td>
+            <td className="px-4 py-2 border border-gray-300">Age</td>
             <td className="px-4 py-2 border border-gray-300">
               {licorne.age} ans
             </td>
