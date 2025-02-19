@@ -29,7 +29,7 @@ export default async function LicornesPage() {
         ))}
       </ul>
 
-      <p className="text-blue-500 mt-4 mb-6">
+      <p className="text-red-500 mt-4 mb-6">
         <Link href="/licornes/add">Ajouter</Link>
       </p>
     </div>

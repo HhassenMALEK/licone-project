@@ -1,10 +1,9 @@
 import Link from "next/link";
 
-export default async function LicorneDetailPage(props: {
-  params: Promise<{ id: string }>;
-}) {
-  const params = await props.params;
-  const res = await fetch(`http://localhost:3001/licornes/${params.id}`);
+export default async function LicorneDetailPage({ params }) {
+  const { id } = await params;
+  console.log("params:" + id);
+  const res = await fetch(`http://localhost:3001/licornes/${id}`);
 
   if (!res.ok) {
     return <h1>Erreur lors de la récupération des données</h1>;
