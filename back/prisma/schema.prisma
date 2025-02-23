@@ -20,3 +20,12 @@ model Licorne {
   color  String?
   weight Float?
 }
+
+model User {
+  userId    Int      @id @default(autoincrement())
+  username  String   @db.VarChar(65) 
+  email     String   @unique @db.VarChar(255)
+  password  String   
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt 
+}
